@@ -1,11 +1,11 @@
-{% extends 'rango/base.html' %}
+{% extends 'infinite/base.html' %}
 {% load staticfiles %}
 {% block title_block %}
 Login
 {% endblock %}
 {% block body_block %}
 <h1>Login to Rango</h1>
-<form id="login_form" method="post" action="{% url 'rango:login' %}">
+<form id="login_form" method="post" action="{% url 'infinite:login' %}">
 {% csrf_token %}
 Username: <input type="text" name="username" value="" size="50" />
 <br />

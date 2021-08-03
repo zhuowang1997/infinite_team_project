@@ -1,4 +1,4 @@
-{% extends 'rango/base.html' %}
+{% extends 'infinite/base.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
@@ -8,7 +8,7 @@
 {% block body_block %}
         <h1>Add a Page to {{ category.slug }}</h1>
         <div>
-            <form id="page_form" method="post" action="{% url 'rango:add_page' category.slug %}">
+            <form id="page_form" method="post" action="{% url 'infinite:add_page' category.slug %}">
                 {% csrf_token %}
                 {% for hidden in form.hidden_fields %}
                     {{ hidden }}

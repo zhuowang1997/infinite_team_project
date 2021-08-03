@@ -1,4 +1,4 @@
-{% extends 'rango/base.html' %}
+{% extends 'infinite/base.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
@@ -9,10 +9,10 @@ Register
 <h1>Register for Rango</h1>
 {% if registered %}
 Rango says: <strong>thank you for registering!</strong>
-<a href="{% url 'rango:index' %}">Return to the homepage.</a><br />
+<a href="{% url 'infinite:index' %}">Return to the homepage.</a><br />
 {% else %}
 Rango says: <strong>register here!</strong><br />
-<form id="user_form" method="post" action="{% url 'rango:register' %}"
+<form id="user_form" method="post" action="{% url 'infinite:register' %}"
 enctype="multipart/form-data">
 
 {% csrf_token %}
