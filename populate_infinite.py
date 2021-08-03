@@ -4,7 +4,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 
 import django
 django.setup()
-from rango.models import Category, Page
+from infinite.models import Category, Page
 
 def populate():
 # First, we will create lists of dictionaries containing the pages
@@ -77,5 +77,5 @@ def add_cat(name,views=0,likes=0):
     return c
 
 if __name__ == '__main__':
-    print('Starting Rango population script...')
+    print('Starting infinite population script...')
     populate()
