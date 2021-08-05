@@ -2,41 +2,40 @@
 {% load staticfiles %}
 
 {% block title_block %}
-    Homepage
+Homepage
 {% endblock %}
 
 {% block body_block %}
-        <h1>Welcome to Infinity!</h1>
-        <div>
-            What you love is your life.<br />
-        </div>
-        <div>
-            <h2>Categories</h2>
-        {% if categories %}
-            <ul>
-            {% for category in categories %}
-                <li>
-                    <a href="{% url 'infinite:show_category' category.slug %}">{{ category.name }}</a>
-                </li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            <strong>There are no categories present.</strong>
-        {% endif %}
-        </div>
-        <div>
-            <h2>Top games</h2>
-            {% if games %}
-             <ul>
-                {% for game in games %}
-                <!-- <li><a href="{{ page.url }}">{{ page.title }}</a></li> -->
-                <li><a href = "{% url 'infinite:show_game' game.category.slug game.slug%}"> <img width="50%" height="50%" src='/media/{{game.picture}}'  alt="{{ game.name }}" /></a></li>
-                
-                {{ game.name }}
-                {% endfor %}
-            </ul>
-        {% else %}
-            <strong>There are no pages present.</strong>
-        {% endif %}
-        </div>
+<div class="search">
+    <h2 class="search_title">SEARCH</h2>
+    <div>
+        <form class="form-inline" id="search-form" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" type="text" name="query" id="query">
+            </div>
+            <button class='btn btn-primary' type="submit" name="submit">Search</button>
+        </form>
+    </div>
+
+</div>
+<div class="welcome">
+    <h1 class="hello">Welcome to infinite!</h1>
+    <h2 class="itr">What you love is your life.</h2>
+    <hr class="wel_line"/>
+    <h2 class="toptitle">TOP game</h2>
+    <hr />
+    {% if games %}
+    <ul class=".game_list">
+        {% for game in games %}
+        <li ><a class="game_img_list" href = "{% url 'infinite:show_game' game.category.slug game.slug%}"> <img width="200px" height="150px" src='/media/{{game.picture}}'  alt="{{ game.name }}" /></a></li>
+        <li ><a class="game_name_list" href = "{% url 'infinite:show_game' game.category.slug game.slug%}">{{ game.name }}</a></li>
+        <li ><hr class="game_hr_list" /></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <strong>There are no games present.</strong>
+    {% endif %}
+</div>
+
 {% endblock %}

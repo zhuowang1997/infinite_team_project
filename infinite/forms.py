@@ -33,15 +33,6 @@ class GameForm(forms.ModelForm):
         model = Game
         exclude = ('category',)
 
-    # def clean(self):
-    #     cleaned_data = self.cleaned_data
-    #     url = cleaned_data.get('url')
-    #     # If url is not empty and doesn't start with 'http://',
-    #     # then prepend 'http://'.
-    #     if url and not url.startswith('http://'):
-    #         url = f'http://{url}'
-    #         cleaned_data['url'] = url
-    #     return cleaned_data
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
