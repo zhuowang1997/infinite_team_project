@@ -30,8 +30,8 @@
              <ul>
                 {% for game in games %}
                 <!-- <li><a href="{{ page.url }}">{{ page.title }}</a></li> -->
-                <li><a href = "{% url 'infinite:show_game' game.category.slug game.slug%}"> <img width="50%" height="50%" src='/media/{{game.picture}}'  alt="{{ game.name }}" /></a></li>
-                
+                <a href = "{% url 'infinite:show_game' game.category.slug game.slug%}"> <img width="50%" height="50%" src='/media/{{game.picture}}'  alt="{{ game.name }}" /></a>
+                <a href = "{% url 'infinite:show_game' game.category.slug game.slug%}"> {{ game.name }}</a>
                 {{ game.name }}
                 {% endfor %}
             </ul>
