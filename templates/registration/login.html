@@ -7,6 +7,7 @@
 {% block body_block %}
 <h1>Login</h1>
 
+
 <form method="post" action=".">
     {% csrf_token %}
 
@@ -14,6 +15,10 @@
     <input type="submit" value="Log In" />
     <input type="hidden" name="next" value="{{ next }}" />
 </form>
+<ul>
+  <li><a href="{% url 'social:begin' 'facebook' %}">signin with facebook</a></li>
+
+</ul>
 
 <p>
     Not registered?

@@ -1,0 +1,15 @@
+{% extends 'infinite/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Like list
+{% endblock %}
+{% block body_block %}
+    {% if games %}
+        {% for game in games %}
+            {{game.name}}
+        {% endfor %}
+    {% else %}
+        There is no game in your likelist!
+    {% endif %}
+{% endblock %}

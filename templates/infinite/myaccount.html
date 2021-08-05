@@ -1,0 +1,16 @@
+{% extends 'infinite/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    MyAccount
+{% endblock %}
+{% block body_block %}
+    <div>
+        {% if user.is_authenticated %}
+        Welcome {{ user.username }}!
+        {% else %}
+        hey there partner!
+        {% endif %}
+    </div>
+    <li><a href="{% url 'infinite:likelist' %}">Like List</a></li>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'infinite/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    {% if game %}
+        {{ game.name }}
+    {% else %}
+        Unknown Game
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+    
+    {% if game %}
+        <div>
+            <img width="50%" height="50%" src='/media/{{game.picture}}'  alt="{{ game.name }}" /></a>
+            <h1>{{ game.name }}</h1>
+            <p>{{game.released_date}}</p>
+            <p>{{game.likes}}</p>
+        </div>
+        <div>
+            <p>{{game.description}}</p>
+        </div>
+    {% endif %}
+    <div>
+        <form id="comment_form" method="post" action="{% url 'infinite:show_game' category.slug game.slug%}">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+        <input type="submit" name="submit" value="Add my comment" />
+        </form>
+    </div>
+    <div>
+    {% if comments %}
+        <ul>
+            {% for comment in comments %}
+            <li>{{comment.comment}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    
+{%endblock%}

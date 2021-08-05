@@ -21,7 +21,8 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
-
+LOGIN_REDIRECT_URL = "/" 
+#if you succeed in login, you'll be redirected to the main page.
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -45,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'infinite',
     'registration',
+    'django.contrib.sites',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -71,14 +74,26 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media', 
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'infinite_team_project.wsgi.application'
 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+SITE_ID = 1
 
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True
+
+#facebook
+SOCIAL_AUTH_FACEBOOK_KEY = '229684345715496'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET ='e1651eb2a815bb90f21091700a38380c5' #app key
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 

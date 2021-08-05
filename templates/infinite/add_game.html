@@ -6,9 +6,10 @@
 {% endblock %}
 
 {% block body_block %}
-        <h1>Add a Page to {{ category.slug }}</h1>
+        <h1>Add a Game to {{ category.slug }}</h1>
         <div>
-            <form id="page_form" method="post" action="{% url 'infinite:add_page' category.slug %}">
+            <form id="game_form" method="post" action="{% url 'infinite:add_game' category.slug %}" 
+            enctype="multipart/form-data">
                 {% csrf_token %}
                 {% for hidden in form.hidden_fields %}
                     {{ hidden }}
@@ -18,7 +19,7 @@
                     {{ field.help_text }}
                     {{ field }}
                 {% endfor %}
-                <input type="submit" name="submit" value="Add Page" />
+                <input type="submit" name="submit" value="Add Game" />
             </form>
                 
         </div>

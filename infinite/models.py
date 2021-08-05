@@ -1,11 +1,10 @@
+from datetime import datetime
 from django.db import models
-from django.template.defaultfilters import slugify
+from django.template.defaultfilters import default, slugify
 from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=128, unique=True)
-    views = models.IntegerField(default=0)
-    likes = models.IntegerField(default=0)
     slug = models.SlugField(blank=True,unique=True)
 
     def save(self,*args,**kwargs):
@@ -17,21 +16,37 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Page(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    title = models.CharField(max_length=128)
-    url = models.URLField()
-    views = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.title
-
 
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # The additional attributes we wish to include.
-    website = models.URLField(blank=True)
+    is_developer = models.BooleanField()
     picture = models.ImageField(upload_to='profile_images', blank=True)
     def __str__(self):
         return self.user.username
+
+class Game(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    name = models.CharField(max_length=128)
+    likes = models.IntegerField(default=0)
+    slug = models.SlugField(blank=True,unique=True)
+    released_date = models.DateField()
+    description = models.CharField(max_length=500)
+    picture = models.ImageField(upload_to='ima', blank=True)
+
+    def save(self,*args,**kwargs):
+        self.slug = slugify(self.name)
+        super(Game,self).save(*args,**kwargs)
+
+    def __str__(self):
+        return self.name
+
+class Comment(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=500)
+    date =  models.DateField(default=datetime.now)
+
+class Like_List(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    game = models.ManyToManyField(Game)
