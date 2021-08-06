@@ -1,3 +1,4 @@
+
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                     'infinite_team_project.settings')
@@ -5,7 +6,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 import django
 django.setup()
 from infinite.models import Category, Game
-
+#create 5 categories with adding different games' information
 def populate():
     Action_Adventure = [
         {'name': 'A Plague Tale: Innocence',
