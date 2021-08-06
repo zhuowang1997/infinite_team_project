@@ -63,15 +63,10 @@ def myaccount(request):
             print(form.errors)
     
     context_dict = {'form': form,'profile':profile}
+    category_list = Category.objects.all
+    context_dict['categories'] = category_list
     return render(request, 'infinite/myaccount.html', context=context_dict)
 
-    # context_dict = {}
-    # category_list = Category.objects.all
-    # context_dict['categories'] = category_list
-
-    # response = render(request, 'infinite/myaccount.html', context=context_dict)
-
-    # return response
 
 @login_required
 def likelist(request):
@@ -85,19 +80,13 @@ def likelist(request):
     except Like_List.DoesNotExist:
         context_dict['games'] = None
 
+    category_list = Category.objects.all
+    context_dict['categories'] = category_list
+
     response = render(request, 'infinite/likelist.html',context_dict)
 
     return response
-    # user = request.user
-    # likelist = Like_List.objects.get(user = user)
-    # games = likelist.game.all()
-    # context_dict = {}
-    # category_list = Category.objects.all
-    # context_dict['categories'] = category_list
-    # context_dict['games'] = games
-    # response = render(request, 'infinite/likelist.html',context_dict)
 
-    # return response
 
 def about(request):
 
@@ -230,6 +219,5 @@ class LikeGameView(View):
             game.likes = game.likes + 1
             game.save()
             likelist.save()
-        # else: 
-        #     return HttpResponse(-2)
+
         return HttpResponse(game.likes)    
