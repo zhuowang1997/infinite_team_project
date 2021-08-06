@@ -41,6 +41,11 @@ class UserForm(forms.ModelForm):
         fields = ('username', 'email', 'password',)
         
 class UserProfileForm(forms.ModelForm):
+    picture = forms.ImageField(
+                help_text="Please upload your profile photo.")
+    is_developer = forms.BooleanField(
+        required=False,initial=False,help_text="whether you are developer"
+    )         
     class Meta:
         model = UserProfile
         fields = ('picture',)
