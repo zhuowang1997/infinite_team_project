@@ -21,7 +21,6 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    is_developer = models.BooleanField()
     picture = models.ImageField(upload_to='profile_images', blank=True)
     def __str__(self):
         return self.user.username
@@ -31,9 +30,9 @@ class Game(models.Model):
     name = models.CharField(max_length=128)
     likes = models.IntegerField(default=0)
     slug = models.SlugField(blank=True,unique=True)
-    released_date = models.DateField()
-    description = models.CharField(max_length=500)
-    picture = models.ImageField(upload_to='ima', blank=True)
+    released_date = models.DateField(default=datetime.now)
+    description = models.CharField(max_length=1000)
+    picture = models.ImageField(upload_to='images', blank=True)
 
     def save(self,*args,**kwargs):
         self.slug = slugify(self.name)
@@ -44,9 +43,10 @@ class Game(models.Model):
 
 class Comment(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.CharField(max_length=500)
     date =  models.DateField(default=datetime.now)
 
 class Like_List(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    game = models.ManyToManyField(Game)
+    game = models.ManyToManyField(Game,blank=True)

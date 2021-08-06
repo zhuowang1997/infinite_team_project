@@ -1,8 +1,11 @@
 from django.shortcuts import render,redirect
-from infinite.models import Category,Game,Comment,Like_List
-from infinite.forms import CategoryForm,GameForm, CommentForm
+from infinite.models import Category,Game,Comment,Like_List,UserProfile
+from infinite.forms import CategoryForm,GameForm, CommentForm,UserProfileForm
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.views import View
+from django.utils.decorators import method_decorator
 
 def index(request):
     category_list = Category.objects.all
@@ -29,32 +32,72 @@ def search(request, query):
         
     if query:
         result_list = Game.objects.filter(name__icontains=query).all()
+    
+    category_list = Category.objects.all
+    context_dict = {}
+    context_dict['categories'] = category_list
+    context_dict['result_list'] = result_list
         
-    return render(request, 'infinite/search.html', {'result_list': result_list})
+    return render(request, 'infinite/search.html', context=context_dict)
 
 @login_required
 def myaccount(request):
 
-    context_dict = {}
-    category_list = Category.objects.all
-    context_dict['categories'] = category_list
+    user = request.user
+    form = UserProfileForm()
+    try:
+        profile = UserProfile.objects.get(user=user)
+    except UserProfile.DoesNotExist:
+        profile = form.save(commit=False)
+        profile.user = user
+        profile.save()
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST,request.FILES)
+        if form.is_valid():
+            profile_cd = form.cleaned_data
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+            profile.save()
+            return redirect('/infinite/myaccount/')
+        else:
+            print(form.errors)
+    
+    context_dict = {'form': form,'profile':profile}
+    return render(request, 'infinite/myaccount.html', context=context_dict)
 
-    response = render(request, 'infinite/myaccount.html', context=context_dict)
+    # context_dict = {}
+    # category_list = Category.objects.all
+    # context_dict['categories'] = category_list
 
-    return response
+    # response = render(request, 'infinite/myaccount.html', context=context_dict)
+
+    # return response
 
 @login_required
 def likelist(request):
+
     user = request.user
-    likelist = Like_List.objects.get(user = user)
-    games = likelist.game.all()
     context_dict = {}
-    category_list = Category.objects.all
-    context_dict['categories'] = category_list
-    context_dict['games'] = games
+    try:
+        likelist = Like_List.objects.get(user = user)
+        games = likelist.game.all()
+        context_dict['games'] = games
+    except Like_List.DoesNotExist:
+        context_dict['games'] = None
+
     response = render(request, 'infinite/likelist.html',context_dict)
 
     return response
+    # user = request.user
+    # likelist = Like_List.objects.get(user = user)
+    # games = likelist.game.all()
+    # context_dict = {}
+    # category_list = Category.objects.all
+    # context_dict['categories'] = category_list
+    # context_dict['games'] = games
+    # response = render(request, 'infinite/likelist.html',context_dict)
+
+    # return response
 
 def about(request):
 
@@ -100,6 +143,7 @@ def show_game(request, category_name_slug,game_name_slug):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
+            comment.user = request.user
             comment.game = game
             comment.save()
             return redirect(reverse('infinite:show_game',
@@ -168,3 +212,24 @@ def add_game(request, category_name_slug):
     context_dict['categories'] = category_list
     
     return render(request, 'infinite/add_game.html', context=context_dict)
+
+class LikeGameView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        user = request.user
+        game_id = request.GET.get('game_id')
+        try:
+            game = Game.objects.get(id=int(game_id))
+            likelist,created=Like_List.objects.get_or_create(user=user)
+        except Game.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+        if not Like_List.objects.filter(game=game,user=user):
+            likelist.game.add(game)
+            game.likes = game.likes + 1
+            game.save()
+            likelist.save()
+        # else: 
+        #     return HttpResponse(-2)
+        return HttpResponse(game.likes)    

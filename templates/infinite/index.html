@@ -9,13 +9,21 @@ Homepage
 <div class="search">
     <h2 class="search_title">SEARCH</h2>
     <div>
-        <form class="form-inline" id="search-form" method="post">
+        <form  class="search_body" method="post">
             {% csrf_token %}
-            <div class="form-group">
-                <input class="form-control" type="text" name="query" id="query">
-            </div>
-            <button class='btn btn-primary' type="submit" name="submit">Search</button>
+            <input type="text" name="query" id="query">
+            <button type="submit" name="submit">Search</button>
         </form>
+        {% if games %}
+        <ul class="search_game_list">
+            {% for game in games %}
+            <li ><a class="search_game_name_list" href = "{% url 'infinite:show_game' game.category.slug game.slug%}">{{ game.name }}</a></li>
+            <br/>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <strong>There are no games present.</strong>
+        {% endif %}
     </div>
 
 </div>
@@ -26,7 +34,7 @@ Homepage
     <h2 class="toptitle">TOP game</h2>
     <hr />
     {% if games %}
-    <ul class=".game_list">
+    <ul class="game_list">
         {% for game in games %}
         <li ><a class="game_img_list" href = "{% url 'infinite:show_game' game.category.slug game.slug%}"> <img width="200px" height="150px" src='/media/{{game.picture}}'  alt="{{ game.name }}" /></a></li>
         <li ><a class="game_name_list" href = "{% url 'infinite:show_game' game.category.slug game.slug%}">{{ game.name }}</a></li>

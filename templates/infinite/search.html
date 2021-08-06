@@ -6,37 +6,23 @@
 {% endblock %}
 
 {% block body_block %}
-<h1>Search with infinite</h1>
+<div class="mainpage">
+    <h1 class="category_name">Search with infinite</h1>
+    <hr/>
+    <ul class="game_list">
+        {% if result_list %}
+        {% for result in result_list %}
+        <li ><a class="game_img_list" href = "{% url 'infinite:show_game' result.category.slug result.slug%}"> <img width="200px" height="150px" src='/media/{{result.picture}}'  alt="{{ result.name }}" /></a></li>
+        <li ><a class="game_name_list" href = "{% url 'infinite:show_game' result.category.slug result.slug%}">{{ result.name }}</a></li>
+        <li ><hr class="game_hr_list" /></li>
+        {% endfor %}
+        {% else %}
+        <li ><a class="game_add_game">Sorry, no pages found for query!</a></li>
+        {% endif %}
+        <li ><hr class="game_hr_list" /></li>
+        <li><a class="game_add_game" href="{% url 'infinite:index' %}">Go back to home</a></li>
 
-<div>
-    <form class="form-inline" id="search-form" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <input class="form-control" type="text" name="query" id="query">
-        </div>
-        <button class='btn btn-primary' type="submit" name="submit">Search</button>
-    </form>
+    </ul>
 </div>
 
-<div>
-    {% if result_list %}
-        <h2>Results</h2>
-        <div class="list-group">
-            {% for result in result_list %}
-                <div class="list-group-item">
-                    <h3 class="list-group-item-heading">
-                        <a href="{{ result.link }}">
-                            {{ result.name|safe|escape }}
-                        </a>
-                    </h3>
-                    <p class="list-group-item-text">
-                        {{ result.name|safe|escape }}
-                    </p>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        Sorry, no pages found for query!
-    {% endif %}
-</div>
 {% endblock %}

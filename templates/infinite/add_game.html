@@ -6,21 +6,21 @@
 {% endblock %}
 
 {% block body_block %}
-        <h1>Add a Game to {{ category.slug }}</h1>
-        <div>
-            <form id="game_form" method="post" action="{% url 'infinite:add_game' category.slug %}" 
-            enctype="multipart/form-data">
-                {% csrf_token %}
-                {% for hidden in form.hidden_fields %}
-                    {{ hidden }}
-                {% endfor %}
-                {% for field in form.visible_fields %}
-                    {{ field.errors }}
-                    {{ field.help_text }}
-                    {{ field }}
-                {% endfor %}
-                <input type="submit" name="submit" value="Add Game" />
-            </form>
-                
-        </div>
+<div class="mainpage">
+    <ul class="game_list">
+        <li><h1 class="add_category_title">Add a Game to {{ category.slug }}</h1></li>
+        <form id="game_form" method="post" action="{% url 'infinite:add_game' category.slug %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+            <li><a class="add_category_content">{{ field.help_text }}</a></li>
+            <li class="add_category_error">{{ field.errors }}</li>
+            <li><a class="add_category_text">{{ field }}</a></li>
+            {% endfor %}
+            <li><a class="add_category_button"><input type="submit" name="submit" value="Add Game" /></a></li>
+        </form>
+    </ul>
+</div>
 {% endblock %}

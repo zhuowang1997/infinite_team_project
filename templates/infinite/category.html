@@ -10,24 +10,28 @@
 {% endblock %}
 
 {% block body_block %}
-    {% if category %}
-    <h1>{{ category.name }}</h1>
-    {% if games %}
-    <ul>
-        {% for game in games %}
-        <div><img width="50%" height="50%" src='/media/{{game.picture}}'  alt="{{ game.name }}" /></a></div>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <strong>No games currently in category.</strong>
-    {% endif %}
-    <div>
-    {% if user.is_authenticated %}
-    <a href="{% url 'infinite:add_game' category.slug %}">Add Game</a> <br/>
-    {% endif %}
-    </div>
-    {% else %}
-        The specified category does not exist.
-    {% endif %}
+    <div class="mainpage">
+        {% if category %}
+        <h1 class="category_name">{{ category.name }}</h1>
+        <hr/>
+        <ul class="game_list">
+            {% if games %}
+            {% for game in games %}
+            <li ><a class="game_img_list" href = "{% url 'infinite:show_game' game.category.slug game.slug%}"> <img width="200px" height="150px" src='/media/{{game.picture}}'  alt="{{ game.name }}" /></a></li>
+            <li ><a class="game_name_list" href = "{% url 'infinite:show_game' game.category.slug game.slug%}">{{ game.name }}</a></li>
+            <li ><hr class="game_hr_list" /></li>
+            {% endfor %}
+            {% else %}
+            <li><a class="game_add_game"><strong>No games currently in category.</strong></a></li>
+            {% endif %}
+            <li ><hr class="game_hr_list" /></li>
+            {% if user.is_authenticated %}
+            <li><a class="game_add_game" href="{% url 'infinite:add_game' category.slug %}">Add Game</a></li>
+            {% endif %}
+        </ul>
+        {% else %}
+        <h1 class="category_name">The specified category does not exist.</h1>
+        <li ><hr class="game_hr_list" /></li>
+        {% endif %}
     </div>
 {%endblock%}

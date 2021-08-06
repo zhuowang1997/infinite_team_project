@@ -13,4 +13,5 @@ urlpatterns = [
     path('category/<slug:category_name_slug>/<slug:game_name_slug>/',views.show_game, name='show_game'),
     path('add_category/', views.add_category, name='add_category'),
     path('search/<query>', views.search, name='search'),
+    path('like_game/', views.LikeGameView.as_view(), name='like_game'),
 ]

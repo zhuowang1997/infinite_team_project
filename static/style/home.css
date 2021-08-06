@@ -14,6 +14,13 @@ main{
     overflow:hidden;
 }
 
+.mainpage{
+    width: 1150px;
+    margin: 10px auto;
+    background-color: #000000;
+    overflow:hidden;
+}
+
 .search{
     float:left;
     width: 400px;
@@ -26,6 +33,31 @@ main{
     margin-top: 50px;
     padding-left: 40px;
 }
+
+.search_body input{
+    margin-top: 30px;
+    margin-bottom:40px;
+    margin-left: 40px;
+    width: 250px;
+    height: 30px;
+}
+.search_body button{
+    height: 35px;
+}
+
+.search_game_list{
+    overflow: hidden;
+}
+
+.search_game_name_list{
+    text-decoration: none;
+    padding-left: 40px;
+    line-height: 80px;
+    font-size: 24px;
+    color:#FFFFFF;
+}
+
+
 .welcome{
     float:left;
     width: 700px;
@@ -130,6 +162,207 @@ li.right {
     float:left;
     width:100%;
     clear:both;
-    opacity: 0.4;
 }
 
+.category_name{
+    font-size: 60px;
+    color:#FFFFFF;
+    padding-left:20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.game_add_game{
+    text-decoration: none;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    padding-left: 20px;
+    font-size: 24px;
+    color:#FFFFFF;
+    float:left;
+    clear:right;
+}
+
+.add_category_title{
+    font-size:40px;
+    color:#FFFFFF;
+    margin-top: 100px;
+    float :left;
+    width:100%;
+    text-align: center;
+}
+
+li.add_category_error{
+    font-size:14px;
+    color:red;
+    font-weight: bold;
+    font-style:italic;
+    float :left;
+    margin-top:10px;
+    width:100%;
+    text-align: center;
+}
+.add_category_content{
+    font-size:20px;
+    color:#FFFFFF;
+    margin-top: 100px;
+    float :left;
+    width:100%;
+    text-align: center;
+}
+
+.add_category_text{
+    text-align: center;
+    width:100%;
+    margin-top: 50px;
+    float :left;
+    text-align: center;
+}
+.add_category_text input{
+    height: 30px;
+    width: 300px;
+}
+.add_category_text #id_picture{
+    height: 30px;
+    width: 300px;
+    color: #FFFFFF;
+}
+
+.add_category_button{
+    width:100%;
+    margin-top: 80px;
+    margin-bottom: 200px;
+    float :left;
+    text-align: center;
+}
+.add_category_button input{
+    font-size: 14px;
+    height: 30px;
+    width: 300px;
+}
+
+.game{
+    overflow:hidden;
+}
+.game_img{
+    margin-top: 40px;
+    padding-left: 30px;
+    float:left;
+}
+
+.game_name{
+    text-decoration: none;
+    margin-top: 40px;
+    padding-left: 80px;
+    font-size: 40px;
+    color:#FFFFFF;
+    float:left;
+    clear:right;
+}
+
+.game_date{
+    text-decoration: none;
+    margin-top: 10px;
+    padding-left: 30px;
+    font-size: 16px;
+    color:#FFFFFF;
+    float:left;
+    clear:both;
+}
+
+.game_like{
+    text-decoration: none;
+    margin-top: 10px;
+    padding-left: 30px;
+    font-size: 16px;
+    color:#FFFFFF;
+    float:left;
+    clear:both;
+}
+.like_btn {
+    text-decoration: none;
+    margin-top: 5px;
+    margin-left:5px;
+    float:left;
+    clear:right;
+}
+
+.game_hr{
+    float:left;
+    width: 100%;
+    clear:both;
+}
+
+.game_des{
+    margin-top: 25px;
+    margin-left: 30px;
+    margin-right: 30px;
+    font-size: 18px;
+    color:#FFFFFF;
+    text-align: justify;
+    float:left;
+    clear:both;
+    white-space: pre-wrap;
+}
+.comment_title{
+    margin-top:10px;
+    margin-left:30px;
+    font-size: 28px;
+    color:#FFFFFF;
+    float:left;
+    clear:both;
+}
+.comment_des{
+    margin-top: 15px;
+    margin-left: 30px;
+    margin-right: 30px;
+    font-size: 14px;
+    color:#FFFFFF;
+    text-align: justify;
+    float:left;
+    clear:both;
+    white-space: pre-wrap;
+}
+
+.comment_hr{
+    float:left;
+    width: 100%;
+    clear:both;
+    opacity: 0.5;
+}
+
+
+.add_comment_content{
+    font-size:20px;
+    color:#FFFFFF;
+    margin-left: 30px;
+    margin-top: 20px;
+    float :left;
+    width:100%;
+}
+
+.add_comment_text{
+    width:100%;
+    margin-top: 50px;
+    margin-left:30px;
+    margin-right:30px;
+    float :left;
+}
+.add_comment_text #id_comment{
+    height: 200px;
+    width: 800px;
+    font-size: 20px;
+}
+
+.add_comment_button{
+    margin-left: 30px;
+    width:100%;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    float :left;
+}
+.add_comment_button input{
+    font-size: 14px;
+    height: 30px;
+    width: 150px;
+}

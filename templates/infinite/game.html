@@ -10,39 +10,41 @@
 {% endblock %}
 
 {% block body_block %}
-    
-    {% if game %}
-        <div>
-            <img width="50%" height="50%" src='/media/{{game.picture}}'  alt="{{ game.name }}" /></a>
-            <h1>{{ game.name }}</h1>
-            <p>{{game.released_date}}</p>
-            <p>{{game.likes}}</p>
-        </div>
-        <div>
-            <p>{{game.description}}</p>
-        </div>
-    {% endif %}
-    <div>
+<div class="mainpage">
+    <ul class="game">
+        {% if game %}
+        <li><img class="game_img" width="400px" height="300px" src='/media/{{game.picture}}'  alt="{{ game.name }}" /></a></li>
+        <li><a class="game_name">{{ game.name }}</a></li>
+        <li><a class="game_date">Realse date: {{game.released_date}}</a></li>
+        <li><a class="game_like">{{ game.likes }} likes</a></li>
+        {% if user.is_authenticated %}
+        <li><button class="like_btn" data-gameid="{{ game.id }}" class="btn btn-primary btn-sm" type="button">
+            Like Game 
+        </button></li>
+        {% endif %}
+        <li ><hr class="game_hr" /></li>
+        <li ><p class="game_des">{{game.description}}</p></li>
+        <li ><hr class="game_hr" /></li>
+        {% endif %}
+        <li><a class="comment_title">COMMENT</a></li>
+        <li ><hr class="game_hr" /></li>
+        {% if comments %}
+        {% for comment in comments %}
+        <li ><p class="comment_des">{{comment.user}}:{{comment.comment}}</p></li>
+        <li ><hr class="comment_hr" /></li>
+        {% endfor %}
+        {% endif %}
+        <li ><hr class="game_hr" /></li> 
         <form id="comment_form" method="post" action="{% url 'infinite:show_game' category.slug game.slug%}">
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
-                {{ hidden }}
+            {{ hidden }}
             {% endfor %}
             {% for field in form.visible_fields %}
-                {{ field.help_text }}
-                {{ field }}
+            <li><a class="add_comment_content">{{ field.help_text }}</a></li>
+            <li><a class="add_comment_text">{{ field }}</a></li>
             {% endfor %}
-        <input type="submit" name="submit" value="Add my comment" />
+            <li><a class="add_comment_button"><input type="submit" name="submit" value="Add my comment" /></a></li>
         </form>
-    </div>
-    <div>
-    {% if comments %}
-        <ul>
-            {% for comment in comments %}
-            <li>{{comment.comment}}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    {% endif %}
-    
+    </ul>
 {%endblock%}

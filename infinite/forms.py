@@ -19,10 +19,10 @@ class CategoryForm(forms.ModelForm):
 class GameForm(forms.ModelForm):
     name = forms.CharField(max_length=128,
                 help_text="Please enter the name of the game.")
-    released_date = forms.DateField(
+    released_date = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}),
                 help_text="Please enter the released date of the game.")
 
-    description = forms.CharField(
+    description = forms.CharField(widget=forms.Textarea,
                 help_text="Please enter the description of the game.")
 
     picture = forms.ImageField(
@@ -43,10 +43,10 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('is_developer', 'picture',)
+        fields = ('picture',)
 
 class CommentForm(forms.ModelForm):
-    comment = forms.CharField(max_length=500,
+    comment = forms.CharField(max_length=500, widget=forms.Textarea,
                help_text="Please enter your comment." )
     class Meta:
         model = Comment
