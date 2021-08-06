@@ -81,7 +81,7 @@ TEMPLATES = [
     },
 ]
 
-
+#add new authentication classes in order to allow authentication with the social platforms
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
