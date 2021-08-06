@@ -16,9 +16,9 @@
         <li><img class="game_img" width="400px" height="300px" src='/media/{{game.picture}}'  alt="{{ game.name }}" /></a></li>
         <li><a class="game_name">{{ game.name }}</a></li>
         <li><a class="game_date">Realse date: {{game.released_date}}</a></li>
-        <li><a class="game_like">{{ game.likes }} likes</a></li>
+        <li><a class="game_like" id="like_count">{{ game.likes }} likes</a></li>
         {% if user.is_authenticated %}
-        <li><button class="like_btn" data-gameid="{{ game.id }}" class="btn btn-primary btn-sm" type="button">
+        <li><button class="like_btn" id="like_btn" data-gameid="{{ game.id }}" class="btn btn-primary btn-sm" type="button">
             Like Game 
         </button></li>
         {% endif %}

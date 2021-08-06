@@ -20,7 +20,7 @@ class Category(models.Model):
 class UserProfile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True, default='default.jpg')
     def __str__(self):
         return self.user.username
 
@@ -35,6 +35,8 @@ class Game(models.Model):
 
     def save(self,*args,**kwargs):
         self.slug = slugify(self.name)
+        if self.likes<0:
+            self.likes=0
         super(Game,self).save(*args,**kwargs)
 
     def __str__(self):

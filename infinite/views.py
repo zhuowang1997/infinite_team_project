@@ -220,4 +220,4 @@ class LikeGameView(View):
             game.save()
             likelist.save()
 
-        return HttpResponse(game.likes)    
+        return HttpResponse(str(game.likes)+' likes')    

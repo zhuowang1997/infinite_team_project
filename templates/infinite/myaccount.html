@@ -5,28 +5,31 @@
     MyAccount
 {% endblock %}
 {% block body_block %}
-
-    <div>
-        {% if user.is_authenticated %}
-        Welcome {{ user.username }}!
-        {% else %}
-        hey there partner!
-        {% endif %}
-    </div>
-    <form id="profile_form" method="post" action="{% url 'infinite:myaccount' %}" 
-            enctype="multipart/form-data">
+<div class="mainpage">
+    {% if user.is_authenticated %}
+    <h1 class="accounnt_welcome">Welcome {{ user.username }}!</h1>
+    <hr />
+    <ul class="game_list">
+        <li><img class="account_img" width="200px" height="200px" src='/media/{{profile.picture}}'  alt="{{ user.username }}" /></a></li>
+        <li><a class="account_btn" href="{% url 'infinite:likelist' %}"><button>Like List</button></a></li>
+        <li><a class="account_btn" href="{% url 'auth_password_change' %}"><button>Change password</button></a></li>
+        <li><a class="account_btn" href="{% url 'auth_logout' %}?next={% url 'infinite:index' %}"><button>Log out</button></a></li>
+        <form id="profile_form" method="post" action="{% url 'infinite:myaccount' %}" enctype="multipart/form-data">
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
-                {{ hidden }}
+            {{ hidden }}
             {% endfor %}
-            /media/{{profile.picture}}
-            <img width="50%" height="50%" src='/media/{{profile.picture}}'  alt="{{ user.username }}" />
             {% for field in form.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }}
+            <li><a class="change_img_content">{{ field.help_text }}</a></li>
+            <li><a class="change_img_text">{{ field }}</a></li>
             {% endfor %}
-            <input type="submit" name="submit" value="Save change" />
-    </form>
-    <li><a href="{% url 'infinite:likelist' %}">Like List</a></li>
+            <li><a class="change_img_button"><input type="submit" name="submit" value="Save change" /></a></li>
+            <li ><hr class="change_img_br" /></li>
+        </form>
+    </ul>
+    {% else %}
+    <h1 class="accounnt_welcome">hey there partner!</h1>
+    <hr />
+    {% endif %}
+</div>
 {% endblock %}

@@ -5,11 +5,17 @@
     Like list
 {% endblock %}
 {% block body_block %}
+<div class="mainpage">
+    <h1 class="category_name">Your Like list</h1>
+    <hr/>
     {% if games %}
-        {% for game in games %}
-            {{game.name}}
-        {% endfor %}
+    {% for game in games %}
+    <li ><a class="game_img_list" href = "{% url 'infinite:show_game' game.category.slug game.slug%}"> <img width="200px" height="150px" src='/media/{{game.picture}}'  alt="{{ game.name }}" /></a></li>
+    <li ><a class="game_name_list" href = "{% url 'infinite:show_game' game.category.slug game.slug%}">{{ game.name }}</a></li>
+    <li ><hr class="game_hr_list" /></li>
+    {% endfor %}
     {% else %}
-        There is no game in your likelist!
+    <li><a class="game_add_game"><strong>There is no game in your likelist!</strong></a></li>
     {% endif %}
+</div>
 {% endblock %}

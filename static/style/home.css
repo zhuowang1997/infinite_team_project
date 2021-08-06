@@ -366,3 +366,120 @@ li.add_category_error{
     height: 30px;
     width: 150px;
 }
+
+.accounnt_welcome{
+    font-size: 40px;
+    color:#FFFFFF;
+    padding-left:70px;
+    margin-top: 100px;
+    margin-bottom: 10px;
+}
+
+.account_img{
+    margin-top: 60px;
+    padding-left: 70px;
+    float:left;
+}
+
+.account_btn{
+    margin-top: 140px;
+    padding-left: 70px;
+    float:left;
+}
+
+.account_btn button{
+    font-size: 20px;
+    width: 200px;
+    height: 70px;
+}
+
+.change_img_content{
+    font-size:10px;
+    color:#FFFFFF;
+    margin-top: 5px;
+    margin-left:70px;
+    float :left;
+    width:100%;
+}
+
+.change_img_text{
+    width:100%;
+    margin-top: 5px;
+    margin-left:70px;
+    float :left;
+}
+.change_img_text input{
+    height: 30px;
+    width: 300px;
+}
+.change_img_text #id_picture{
+    height: 30px;
+    width: 300px;
+    color: #FFFFFF;
+}
+
+.change_img_button{
+    width:100%;
+    margin-top: 5px;
+    margin-left:70px;
+    margin-bottom: 200px;
+    float :left;
+}
+.change_img_button input{
+    font-size: 14px;
+    height: 30px;
+    width: 200px;
+}
+
+.change_img_br{
+    float:left;
+    width: 100%;
+    clear:both;
+    margin-bottom:50px;
+}
+
+
+.login_button{
+    width:100%;
+    margin-top: 80px;
+    float :left;
+    text-align: center;
+}
+a.login_button input{
+    font-size: 14px;
+    height: 30px;
+    width: 300px;
+}
+ul.errorlist.nonfield{
+    color:#FFFFFF
+}
+.facebook{
+    width:100%;
+    margin-top: 10px;
+    margin-left:425px;
+    color:#FFFFFF;
+    float :left; 
+}
+
+.register_button{
+    width:100%;
+    margin-top: 80px;
+    margin-bottom: 200px;
+    float :left;
+    text-align: center;
+}
+a.register_button input{
+    font-size: 14px;
+    height: 30px;
+    width: 300px;
+}
+
+.change_down{
+    font-size:40px;
+    color:#FFFFFF;
+    margin-top: 100px;
+    margin-bottom:50px;
+    float :left;
+    width:100%;
+    text-align: center;
+}

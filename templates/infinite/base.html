@@ -33,7 +33,7 @@
                     </ul>
                 </li>
                 {% if user.is_authenticated %}
-                <li class="right"><a class="navtext" href="{% url 'auth_logout' %}">Log out</a></li>
+                <li class="right"><a class="navtext" href="{% url 'auth_logout' %}?next={% url 'infinite:index' %}">Log out</a></li>
                 <li class="right"><a class="navtext" href="{% url 'infinite:myaccount' %}">My Account</a></li>
                 {% else %}
                 <li class="right"><a class="navtext" href="{% url 'auth_login' %}">Login</a></li>

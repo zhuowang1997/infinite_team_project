@@ -3,10 +3,20 @@
 Register
 {% endblock %}
 {% block body_block %}
-<h1>Register Here</h1>
-<form method="post" action=".">
-{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="Register" />
-</form>
+<div class="mainpage">
+    <ul class="game_list">
+        <li><h1 class="add_category_title">Register Here</h1></li>
+        <form method="post" action=".">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+            <li><a class="add_category_content">{{ field.label }}</a></li>
+            <li><a class="add_category_text">{{ field }}</a></li>
+            {% endfor %}
+            <li><a class="register_button"><input type="submit" value="Register" /></a></li>
+        </form>
+    </ul>
+</div>
 {% endblock %}

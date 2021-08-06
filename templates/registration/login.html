@@ -5,23 +5,24 @@
 {% endblock %}
 
 {% block body_block %}
-<h1>Login</h1>
-
-
-<form method="post" action=".">
-    {% csrf_token %}
-
-    {{ form.as_p }}
-    <input type="submit" value="Log In" />
-    <input type="hidden" name="next" value="{{ next }}" />
-</form>
-<ul>
-  <li><a href="{% url 'social:begin' 'facebook' %}">signin with facebook</a></li>
-
-</ul>
-
-<p>
-    Not registered?
-    <a href="{% url 'registration_register' %}">Register here!</a>
-</p>
+<div class="mainpage">
+    <ul class="game_list">
+        <li><h1 class="add_category_title">Login</h1></li>
+        <form method="post" action=".">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+            <li><a class="add_category_content">{{ field.label }}</a></li>
+            <li><a class="add_category_text">{{ field }}</a></li>
+            {% endfor %}
+            <li><a class="login_button"><input type="submit" value="Log In" /></a></li>
+            <li><a class="facebook" href="{% url 'social:begin' 'facebook' %}">signin with facebook</a></li>
+            <li><a class="facebook">Not registered?</a></li>
+            <li><a class="facebook" href="{% url 'registration_register' %}">Register here!</a></li>
+            <li><a class="login_button"><input type="hidden" name="next" value="{{ next }}" /></a></li>
+        </form>
+    </ul>
+</div>
 {% endblock %}
