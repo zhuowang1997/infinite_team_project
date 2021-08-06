@@ -7,8 +7,10 @@ from django.http import HttpResponse
 from django.views import View
 from django.utils.decorators import method_decorator
 
+#view for index page
 def index(request):
     category_list = Category.objects.all
+    #games will be ordered by likes 
     games_list = Game.objects.order_by('-likes')[:5]
 
     context_dict = {}
@@ -24,6 +26,7 @@ def index(request):
 
     return response
 
+#view for search page
 def search(request, query):
     result_list = []
 
@@ -40,6 +43,7 @@ def search(request, query):
         
     return render(request, 'infinite/search.html', context=context_dict)
 
+#view for user profile page
 @login_required
 def myaccount(request):
 
@@ -67,7 +71,7 @@ def myaccount(request):
     context_dict['categories'] = category_list
     return render(request, 'infinite/myaccount.html', context=context_dict)
 
-
+#view for likelist page
 @login_required
 def likelist(request):
 
@@ -87,7 +91,7 @@ def likelist(request):
 
     return response
 
-
+#view for about page
 def about(request):
 
     context_dict = {}
@@ -96,7 +100,7 @@ def about(request):
 
     return render(request, 'infinite/about.html', context_dict)
 
-
+#view for category page
 def show_category(request, category_name_slug):
 
     context_dict = {}
@@ -115,6 +119,7 @@ def show_category(request, category_name_slug):
 
     return render(request, 'infinite/category.html', context=context_dict)
 
+#view for game page
 def show_game(request, category_name_slug,game_name_slug):
 
     form = CommentForm()
@@ -149,7 +154,7 @@ def show_game(request, category_name_slug,game_name_slug):
 
     return render(request, 'infinite/game.html', context=context_dict)
 
-
+#view for add category page.
 @login_required
 def add_category(request):
     form = CategoryForm()
@@ -173,7 +178,7 @@ def add_category(request):
    
     return render(request, 'infinite/add_category.html', context_dict)
 
-
+#view for add game page.
 @login_required
 def add_game(request, category_name_slug):
     try:
@@ -202,6 +207,7 @@ def add_game(request, category_name_slug):
     
     return render(request, 'infinite/add_game.html', context=context_dict)
 
+#view for like game function.
 class LikeGameView(View):
     @method_decorator(login_required)
     def get(self, request):
