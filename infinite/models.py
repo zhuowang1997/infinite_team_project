@@ -3,10 +3,12 @@ from django.db import models
 from django.template.defaultfilters import default, slugify
 from django.contrib.auth.models import User
 
+
 class Category(models.Model):
     name = models.CharField(max_length=128, unique=True)
     slug = models.SlugField(blank=True,unique=True)
 
+    #auto generate slug field by category name
     def save(self,*args,**kwargs):
         self.slug = slugify(self.name)
         super(Category,self).save(*args,**kwargs)
@@ -18,8 +20,8 @@ class Category(models.Model):
 
 
 class UserProfile(models.Model):
-
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    #setting a default profile image for user.
     picture = models.ImageField(upload_to='profile_images', blank=True, default='default.jpg')
     def __str__(self):
         return self.user.username
@@ -32,7 +34,10 @@ class Game(models.Model):
     released_date = models.DateField(default=datetime.now)
     description = models.CharField(max_length=1000)
     picture = models.ImageField(upload_to='images', blank=True)
-
+    
+    #auto generate slug field by game name
+    #check whether the value for likes is less than zero
+    #ensure that the values are non-zero for this particular field
     def save(self,*args,**kwargs):
         self.slug = slugify(self.name)
         if self.likes<0:
