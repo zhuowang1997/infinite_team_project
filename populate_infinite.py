@@ -151,7 +151,6 @@ def populate():
     for category, category_data in categories.items():
         c = add_category(category)
         for p in category_data['name']:
-            print('okkkkkkk')
             add_game(c, p['name'], p['released_date'],p['description'],p['picture'],p['likes'])
 
     for c in Category.objects.all():
