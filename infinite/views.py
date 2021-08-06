@@ -49,7 +49,12 @@ def myaccount(request):
 
     user = request.user
     form = UserProfileForm()
-    profile,created = UserProfile.get_or_create(user=user)
+    try:
+        profile = UserProfile.objects.get(user=user)
+    except UserProfile.DoesNotExist:
+        profile = form.save(commit=False)
+        profile.user = user
+        profile.save()
     if request.method == 'POST':
         form = UserProfileForm(request.POST,request.FILES)
         if form.is_valid():

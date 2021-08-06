@@ -26,6 +26,7 @@
         <li ><p class="game_des">{{game.description}}</p></li>
         <li ><hr class="game_hr" /></li>
         {% endif %}
+        {% if user.is_authenticated %}
         <li><a class="comment_title">COMMENT</a></li>
         <li ><hr class="game_hr" /></li>
         {% if comments %}
@@ -46,5 +47,6 @@
             {% endfor %}
             <li><a class="add_comment_button"><input type="submit" name="submit" value="Add my comment" /></a></li>
         </form>
+        {% endif %}
     </ul>
 {%endblock%}
