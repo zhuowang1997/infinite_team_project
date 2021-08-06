@@ -6,6 +6,7 @@ from infinite.models import Game, Category,Comment
 from django.contrib.auth.models import User
 from infinite.models import UserProfile
 
+#form of Category, user need to input name when adding new category.
 class CategoryForm(forms.ModelForm):
     name = forms.CharField(max_length=128,
                 help_text="Please enter the category name.")
@@ -15,7 +16,7 @@ class CategoryForm(forms.ModelForm):
         model = Category
         fields = ('name',)
 
-
+#form of Game, user need to input name, release date, description of the game, and upload an image when adding new category.
 class GameForm(forms.ModelForm):
     name = forms.CharField(max_length=128,
                 help_text="Please enter the name of the game.")
@@ -39,7 +40,8 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password',)
-        
+
+ #user form for uploading personal profile image in profile page
 class UserProfileForm(forms.ModelForm):
     picture = forms.ImageField(
                 help_text="Please upload your profile photo.")
@@ -48,6 +50,7 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('picture',)
 
+#comment form for inputing comments in game page.
 class CommentForm(forms.ModelForm):
     comment = forms.CharField(max_length=500, widget=forms.Textarea,
                help_text="Please enter your comment." )
