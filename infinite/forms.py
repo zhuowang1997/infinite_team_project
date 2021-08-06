@@ -19,7 +19,7 @@ class CategoryForm(forms.ModelForm):
 class GameForm(forms.ModelForm):
     name = forms.CharField(max_length=128,
                 help_text="Please enter the name of the game.")
-    released_date = forms.DateField(
+    released_date = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}),
                 help_text="Please enter the released date of the game.")
 
     description = forms.CharField(
@@ -33,15 +33,7 @@ class GameForm(forms.ModelForm):
         model = Game
         exclude = ('category',)
 
-    # def clean(self):
-    #     cleaned_data = self.cleaned_data
-    #     url = cleaned_data.get('url')
-    #     # If url is not empty and doesn't start with 'http://',
-    #     # then prepend 'http://'.
-    #     if url and not url.startswith('http://'):
-    #         url = f'http://{url}'
-    #         cleaned_data['url'] = url
-    #     return cleaned_data
+
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -50,6 +42,11 @@ class UserForm(forms.ModelForm):
         fields = ('username', 'email', 'password',)
         
 class UserProfileForm(forms.ModelForm):
+    picture = forms.ImageField(
+                help_text="Please upload your profile photo.")
+    is_developer = forms.BooleanField(
+        required=False,initial=False,help_text="whether you are developer"
+    )         
     class Meta:
         model = UserProfile
         fields = ('is_developer', 'picture',)

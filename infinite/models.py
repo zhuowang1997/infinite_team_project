@@ -21,7 +21,7 @@ class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # The additional attributes we wish to include.
-    is_developer = models.BooleanField()
+    is_developer = models.BooleanField(default=False)
     picture = models.ImageField(upload_to='profile_images', blank=True)
     def __str__(self):
         return self.user.username
@@ -33,7 +33,7 @@ class Game(models.Model):
     slug = models.SlugField(blank=True,unique=True)
     released_date = models.DateField()
     description = models.CharField(max_length=500)
-    picture = models.ImageField(upload_to='ima', blank=True)
+    picture = models.ImageField(upload_to='img', blank=True)
 
     def save(self,*args,**kwargs):
         self.slug = slugify(self.name)
@@ -44,6 +44,7 @@ class Game(models.Model):
 
 class Comment(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.CharField(max_length=500)
     date =  models.DateField(default=datetime.now)
 

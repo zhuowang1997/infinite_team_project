@@ -5,6 +5,7 @@
     MyAccount
 {% endblock %}
 {% block body_block %}
+
     <div>
         {% if user.is_authenticated %}
         Welcome {{ user.username }}!
@@ -12,5 +13,20 @@
         hey there partner!
         {% endif %}
     </div>
+    <form id="profile_form" method="post" action="{% url 'infinite:myaccount' %}" 
+            enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            /media/{{profile.picture}}
+            <img width="50%" height="50%" src='/media/{{profile.picture}}'  alt="{{ user.username }}" />
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+            <input type="submit" name="submit" value="Save change" />
+    </form>
     <li><a href="{% url 'infinite:likelist' %}">Like List</a></li>
 {% endblock %}

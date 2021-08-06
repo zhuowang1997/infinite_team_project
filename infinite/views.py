@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from infinite.models import Category,Game,Comment,Like_List
+from infinite.models import Category,Game,Comment,Like_List,UserProfile
 from infinite.forms import CategoryForm,GameForm,UserForm, UserProfileForm,CommentForm
 from django.urls import reverse
 from django.contrib.auth import authenticate, get_user_model, login,logout
@@ -17,7 +17,7 @@ def index(request):
 
     request.session.set_test_cookie()
 
-    visitor_cookie_handler(request)
+    # visitor_cookie_handler(request)
 
     response = render(request, 'infinite/index.html', context=context_dict)
     # Call the helper function to handle the cookies
@@ -27,18 +27,41 @@ def index(request):
 
 @login_required
 def myaccount(request):
+    user = request.user
+    form = UserProfileForm()
+    try:
+        profile = UserProfile.objects.get(user=user)
+    except UserProfile.DoesNotExist:
+        profile = form.save(commit=False)
+        profile.user = user
+        profile.save()
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST,request.FILES)
+        if form.is_valid():
+            profile_cd = form.cleaned_data
+            profile.is_developer = profile_cd['is_developer']
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+            profile.save()
+            return redirect('/infinite/myaccount/')
+        else:
+            print(form.errors)
+    
+    context_dict = {'form': form,'profile':profile}
+    return render(request, 'infinite/myaccount.html', context=context_dict)
 
-    response = render(request, 'infinite/myaccount.html')
-
-    return response
 
 @login_required
 def likelist(request):
     user = request.user
-    likelist = Like_List.objects.get(user = user)
-    games = likelist.game.all()
     context_dict = {}
-    context_dict['games'] = games
+    try:
+        likelist = Like_List.objects.get(user = user)
+        games = likelist.game.all()
+        context_dict['games'] = games
+    except Like_List.DoesNotExist:
+        context_dict['games'] = None
+
     response = render(request, 'infinite/likelist.html',context_dict)
 
     return response
@@ -87,6 +110,7 @@ def show_game(request, category_name_slug,game_name_slug):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
+            comment.user = request.user
             comment.game = game
             comment.save()
             return redirect(reverse('infinite:show_game',
@@ -147,9 +171,6 @@ def add_game(request, category_name_slug):
     context_dict = {'form': form, 'category': category}
     return render(request, 'infinite/add_game.html', context=context_dict)
 
-@login_required
-def restricted(request):
-    return render(request, 'infinite/restricted.html')
 
 # A helper method
 def get_server_side_cookie(request, cookie, default_val=None):

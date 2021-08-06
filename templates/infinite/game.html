@@ -39,7 +39,7 @@
     {% if comments %}
         <ul>
             {% for comment in comments %}
-            <li>{{comment.comment}}</li>
+            <li>{{comment.user}}:{{comment.comment}}</li>
             {% endfor %}
         </ul>
     </div>
